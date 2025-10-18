@@ -4,7 +4,6 @@ import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
-import { ensureStartsWith } from '@/utilities/ensureStartsWith'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { GeistSans } from 'geist/font/sans'
@@ -12,14 +11,12 @@ import { GeistMono } from 'geist/font/mono'
 import React from 'react'
 import './globals.css'
 
-/* const { SITE_NAME, TWITTER_CREATOR, TWITTER_SITE } = process.env
+const { SITE_NAME } = process.env
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
   : 'http://localhost:3000'
-const twitterCreator = TWITTER_CREATOR ? ensureStartsWith(TWITTER_CREATOR, '@') : undefined
-const twitterSite = TWITTER_SITE ? ensureStartsWith(TWITTER_SITE, 'https://') : undefined
- */
-/* export const metadata = {
+
+export const metadata = {
   metadataBase: new URL(baseUrl),
   robots: {
     follow: true,
@@ -29,15 +26,27 @@ const twitterSite = TWITTER_SITE ? ensureStartsWith(TWITTER_SITE, 'https://') : 
     default: SITE_NAME,
     template: `%s | ${SITE_NAME}`,
   },
-  ...(twitterCreator &&
-    twitterSite && {
-      twitter: {
-        card: 'summary_large_image',
-        creator: twitterCreator,
-        site: twitterSite,
+  description: 'payload ecommerce template freshup',
+  icons: {
+    icon: [
+      {
+        url: '/favicon.ico',
+        sizes: '32x32',
+        shortcut: '/favicon.ico',
       },
-    }),
-} */
+      {
+        url: '/favicon.svg',
+        type: 'image/svg+xml',
+      },
+    ],
+    apple: '/apple-touch-icon.png',
+    other: {
+      rel: 'mask-icon',
+      url: '/mask-icon.svg',
+      color: '#000000',
+    },
+  },
+} 
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -46,16 +55,11 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       lang="en"
       suppressHydrationWarning
     >
-      <head>
-        <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
-      </head>
       <body>
+        <InitTheme />
         <Providers>
           <AdminBar />
           <LivePreviewListener />
-
           <Header />
           <main>{children}</main>
           <Footer />
