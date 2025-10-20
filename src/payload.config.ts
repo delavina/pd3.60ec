@@ -22,6 +22,7 @@ import { Pages } from '@/collections/Pages'
 import { Users } from '@/collections/Users'
 import { Footer } from '@/globals/Footer'
 import { Header } from '@/globals/Header'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { plugins } from './plugins'
 
 const filename = fileURLToPath(import.meta.url)
@@ -84,6 +85,12 @@ export default buildConfig({
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
+    vercelBlobStorage({
+      collections: {
+        media: true, // oder der Name deiner Media Collection
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+    }),
   ],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
